@@ -22,8 +22,8 @@ class Individual:
         return len(self.genome)
 
     def __str__(self) -> str:
-        return f"age: {self.age}\ncrossover failure: {self.crossover_failure}\nfitness: {self.fitness}\nvalue: {self.genome}\n"
-
+        return f"fitness: {self.fitness}\nvalue: {self.genome}\n"
+    
     def __repr__(self):
         return self.__str__()
 

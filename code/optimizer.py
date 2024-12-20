@@ -27,6 +27,9 @@ def run_algorithm(
     # create primary population
     population = primary_population_creator(population_size, genome_size)
     evaluate_all(population)
+    
+    MAX_GENERATIONS = 500
+    current_generation = 0
 
     while True:
         # cross over
@@ -46,6 +49,7 @@ def run_algorithm(
 
         # TODO: evaluate generated_individuals
         evaluate_all(generated_individuals)
+        
 
         # TODO: select next generation by use of 'next_generation_selection' method
         population = next_generation_selection(population, generated_individuals, population_size)
@@ -55,6 +59,16 @@ def run_algorithm(
         if terminating_individual is not None:
             best_individual = terminating_individual
             break
+        
+        current_generation += 1
+
+        if current_generation > MAX_GENERATIONS:
+            print("Reached maximum generations. Stopping.")
+            break
+        
+        if(current_generation % 10 == 0):
+            print(f"Current Generation: {current_generation}, Best Fitness: {best_fitness(population)}")
+        
 
         # TODO: redefine 'population' for the next iteration
         
@@ -62,7 +76,7 @@ def run_algorithm(
         # don't change following codes
         best_fitness_list.append(best_fitness(population))
         avg_fitness_list.append(avg_fitness(population))
-        random.shuffle(population)
+        # random.shuffle(population)
 
     return best_individual, best_fitness_list, avg_fitness_list
 
